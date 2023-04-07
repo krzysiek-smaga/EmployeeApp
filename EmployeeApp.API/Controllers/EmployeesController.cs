@@ -1,8 +1,7 @@
-﻿using EmployeeApp.API.Database;
-using EmployeeApp.API.Domain.Models;
+﻿using EmployeeApp.API.Domain.Models;
+using EmployeeApp.API.Domain.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeApp.API.Controllers
 {
@@ -10,17 +9,17 @@ namespace EmployeeApp.API.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
-        private readonly EmployeeApiDbContext _context;
+        private readonly IEmployeeService _employeeService;
 
-        public EmployeesController(EmployeeApiDbContext context)
+        public EmployeesController(IEmployeeService employeeSerivce)
         {
-            _context = context;
+            _employeeService = employeeSerivce;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Employee>>> GetEmployees()
         {
-            return await _context.Employees.ToListAsync();
+            return Ok(await _employeeService.GetEmployees());
         }
     }
 }
