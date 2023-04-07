@@ -1,4 +1,4 @@
-using EmployeeApp.API.Context;
+using EmployeeApp.API.Database;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

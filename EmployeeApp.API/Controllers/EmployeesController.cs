@@ -1,4 +1,4 @@
-﻿using EmployeeApp.API.Context;
+﻿using EmployeeApp.API.Database;
 using EmployeeApp.API.Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

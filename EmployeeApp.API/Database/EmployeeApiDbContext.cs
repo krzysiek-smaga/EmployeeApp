@@ -1,7 +1,7 @@
 ﻿using EmployeeApp.API.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeApp.API.Context
+namespace EmployeeApp.API.Database
 {
     public class EmployeeApiDbContext : DbContext
     {
