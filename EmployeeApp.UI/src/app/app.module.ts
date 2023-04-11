@@ -7,18 +7,23 @@ import { EmployeesPageComponent } from './employees-page/employees-page.componen
 import { EmployeesTableComponent } from './employees-table/employees-table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeaderComponent } from './header/header.component';
+
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeesPageComponent,
-    EmployeesTableComponent
+    EmployeesTableComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
