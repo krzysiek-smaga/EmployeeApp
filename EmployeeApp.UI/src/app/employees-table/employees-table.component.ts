@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Employee } from '../_models/employee';
 import { EmployeeService } from '../_services/employee.service';
 
@@ -8,18 +10,27 @@ import { EmployeeService } from '../_services/employee.service';
   styleUrls: ['./employees-table.component.scss']
 })
 export class EmployeesTableComponent {
-  employees: Employee[] = [];
+  displayedColumns: string[] = ['name', 'hireDate'];
+  dataSource!: MatTableDataSource<Employee>;
 
-  constructor(private employeeService: EmployeeService) { 
-  }
+  constructor(private employeeService: EmployeeService) {
+    }
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
     this.loadEmployees();
   }
 
   loadEmployees() {
-    this.employeeService.getEmployees().subscribe((result: Employee[]) => {
-      this.employees = result;
+    this.employeeService.getEmployees().subscribe({
+      next: (result: Employee[]) => {
+      this.dataSource = new MatTableDataSource(result);
+      this.dataSource.sort = this.sort;
+      },
+      error: err => {
+        console.log(err);
+      }
     });
   }
 }
