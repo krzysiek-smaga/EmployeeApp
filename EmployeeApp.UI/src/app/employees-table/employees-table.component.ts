@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
 import { Employee } from '../_models/employee';
-
-const EMPLOYEES: Employee[] = [
-  { id: 1, name: 'Manager One', hireDate: '04/04/2023' },
-  { id: 2, name: 'Regular Employee One', hireDate: '05/04/2023' },
-  { id: 3, name: 'Regular Employee Two', hireDate: '06/04/2023' }
-];
+import { EmployeeService } from '../_services/employee.service';
 
 @Component({
   selector: 'app-employees-table',
@@ -13,5 +8,18 @@ const EMPLOYEES: Employee[] = [
   styleUrls: ['./employees-table.component.scss']
 })
 export class EmployeesTableComponent {
-  employees = EMPLOYEES;
+  employees: Employee[] = [];
+
+  constructor(private employeeService: EmployeeService) { 
+  }
+
+  ngOnInit(): void {
+    this.loadEmployees();
+  }
+
+  loadEmployees() {
+    this.employeeService.getEmployees().subscribe((result: Employee[]) => {
+      this.employees = result;
+    });
+  }
 }
