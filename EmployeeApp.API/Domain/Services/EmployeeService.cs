@@ -12,9 +12,14 @@ namespace EmployeeApp.API.Domain.Services
             _employeeRepository = employeeRepository;
         }
 
-        public Task<List<Employee>> GetEmployees()
+        public async Task<List<Employee>> GetEmployees()
         {
-            return _employeeRepository.GetEmployees();
+            return await _employeeRepository.GetEmployees();
+        }
+
+        public async Task<List<string>> GetEmployeesNames()
+        {
+            return await _employeeRepository.GetEmployeesNames();
         }
     }
 }

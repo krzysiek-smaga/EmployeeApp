@@ -17,5 +17,10 @@ namespace EmployeeApp.API.Database.Repositories
         {
             return await _context.Employees.ToListAsync();
         }
+
+        public async Task<List<string>> GetEmployeesNames()
+        {
+            return await _context.Employees.Select(emp => emp.Name).ToListAsync();
+        }
     }
 }
