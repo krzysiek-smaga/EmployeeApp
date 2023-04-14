@@ -16,7 +16,7 @@ namespace EmployeeApp.API.Controllers
             _employeeService = employeeSerivce;
         }
 
-        [HttpGet]
+        [HttpGet("GetEmployees")]
         public async Task<ActionResult<List<Employee>>> GetEmployees()
         {
             return Ok(await _employeeService.GetEmployees());
