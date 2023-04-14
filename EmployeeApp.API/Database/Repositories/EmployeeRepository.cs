@@ -18,6 +18,15 @@ namespace EmployeeApp.API.Database.Repositories
             return await _context.Employees.ToListAsync();
         }
 
+        public async Task<List<Employee>> GetManagers()
+        {
+            var managerIds = await _context.Employees.AsQueryable().Select(x => x.ManagerId).Distinct().ToListAsync();
+
+            var managers = await _context.Employees.AsQueryable().Where(e => managerIds.Contains(e.Id)).ToListAsync();
+
+            return managers;
+        }
+
         public async Task<List<string>> GetEmployeesNames()
         {
             return await _context.Employees.Select(emp => emp.Name).ToListAsync();

@@ -22,6 +22,12 @@ namespace EmployeeApp.API.Controllers
             return Ok(await _employeeService.GetEmployees());
         }
 
+        [HttpGet("GetManagers")]
+        public async Task<ActionResult<List<Employee>>> GetManagers()
+        {
+            return Ok(await _employeeService.GetManagers());
+        }
+
         [HttpGet("GetEmployeesNames")]
         public async Task<ActionResult<List<string>>> GetEmployeesNames()
         {

@@ -17,6 +17,11 @@ namespace EmployeeApp.API.Domain.Services
             return await _employeeRepository.GetEmployees();
         }
 
+        public async Task<List<Employee>> GetManagers()
+        {
+            return await _employeeRepository.GetManagers();
+        }
+
         public async Task<List<string>> GetEmployeesNames()
         {
             return await _employeeRepository.GetEmployeesNames();
