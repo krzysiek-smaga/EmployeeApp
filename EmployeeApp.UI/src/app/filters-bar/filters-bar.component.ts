@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-
-interface Food {
-  value: string;
-  viewValue: string;
-}
+import { EmployeeService } from '../_services/employee.service';
+import { Moment } from 'moment';
+import { Employee } from '../_models/employee';
 
 @Component({
   selector: 'app-filters-bar',
@@ -14,32 +12,65 @@ interface Food {
   styleUrls: ['./filters-bar.component.scss']
 })
 export class FiltersBarComponent {
-  myControl = new FormControl('');
-  options: string[] = ['One', 'Two', 'Three'];
-  filteredOptions!: Observable<string[]>;
-
-  selectedValue!: string;
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-  ];
-
-  range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
+  form = new FormGroup({
+    selectedName: new FormControl<string | null>(null),
+    selectedManagerId: new FormControl<number | null>(null),
+    startDate: new FormControl<Moment | null>(null),
+    endDate: new FormControl<Moment | null>(null)
   });
 
+  employeesNames!: string[];
+  filteredEmployeesNames!: Observable<string[]>;
+
+  managers!: Employee[];
+
+  constructor(private employeeService: EmployeeService) {
+  }
+  
   ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
+    this.loadEmployeesNames();
+    this.loadManagers();
+  }
+
+  private loadManagers() {
+    this.employeeService.getManagers().subscribe({
+      next: (result: Employee[]) => {
+      this.managers = result;
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
+  }
+
+  private loadEmployeesNames() {
+    this.employeeService.getEmployeesNames().subscribe({
+      next: (result: string[]) => {
+      this.employeesNames = result;
+      this.fillFilteredEmployeesNames();
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.employeesNames.filter(employeesName => employeesName.toLowerCase().includes(filterValue));
+  }
+
+  fillFilteredEmployeesNames() {
+    this.filteredEmployeesNames = this.form.controls.selectedName.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '')),
     );
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  onFilter() {
+    console.log(this.form.controls.selectedName.value);
+    console.log(this.form.controls.startDate.value?.toISOString());
+    console.log(this.form.controls.endDate.value?.toISOString());
+    console.log(this.form.controls.selectedManagerId.value);
   }
 }
