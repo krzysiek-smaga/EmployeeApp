@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Input, SimpleChange } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Employee } from '../_models/employee';
@@ -18,8 +18,11 @@ export class EmployeesTableComponent {
 
   @ViewChild(MatSort) sort!: MatSort;
 
-  ngOnInit(): void {
+  @Input() searchInvoked!: Boolean;
+
+  ngOnChanges(changes: SimpleChange): void {
     this.loadEmployees();
+    this.searchInvoked = false;
   }
 
   loadEmployees() {

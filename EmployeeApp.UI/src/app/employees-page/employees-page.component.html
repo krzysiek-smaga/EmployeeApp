@@ -1,1 +1,3 @@
-<app-employees-table></app-employees-table>
+<app-filters-bar (onSearch)="invokeSearch($event)"></app-filters-bar>
+
+<app-employees-table [searchInvoked]="searchInvoked"></app-employees-table>

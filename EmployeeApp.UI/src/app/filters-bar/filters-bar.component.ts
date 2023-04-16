@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { EmployeeService } from '../_services/employee.service';
-import { Moment } from 'moment';
 import { Employee } from '../_models/employee';
+import { FiltersService } from '../_services/filters.service';
 
 @Component({
   selector: 'app-filters-bar',
@@ -13,10 +13,10 @@ import { Employee } from '../_models/employee';
 })
 export class FiltersBarComponent {
   form = new FormGroup({
-    selectedName: new FormControl<string | null>(null),
-    selectedManagerId: new FormControl<number | null>(null),
-    startDate: new FormControl<Moment | null>(null),
-    endDate: new FormControl<Moment | null>(null)
+    selectedName: new FormControl(),
+    selectedManagerId: new FormControl(),
+    fromDate: new FormControl(),
+    toDate: new FormControl()
   });
 
   employeesNames!: string[];
@@ -24,8 +24,12 @@ export class FiltersBarComponent {
 
   managers!: Employee[];
 
-  constructor(private employeeService: EmployeeService) {
-  }
+  @Output() onSearch = new EventEmitter<Boolean>();
+
+  constructor(
+    private employeeService: EmployeeService,
+    private filtersService: FiltersService
+    ) { }
   
   ngOnInit() {
     this.loadEmployeesNames();
@@ -68,9 +72,13 @@ export class FiltersBarComponent {
   }
 
   onFilter() {
-    console.log(this.form.controls.selectedName.value);
-    console.log(this.form.controls.startDate.value?.toISOString());
-    console.log(this.form.controls.endDate.value?.toISOString());
-    console.log(this.form.controls.selectedManagerId.value);
+    this.filtersService.setFilters(
+      this.form.controls.fromDate.value,
+      this.form.controls.toDate.value,
+      this.form.controls.selectedName.value,
+      this.form.controls.selectedManagerId.value);
+    
+    let performSearch = new Boolean(true);
+    this.onSearch.emit(performSearch);
   }
 }

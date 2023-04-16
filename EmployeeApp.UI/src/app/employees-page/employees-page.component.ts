@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./employees-page.component.scss']
 })
 export class EmployeesPageComponent {
+  searchInvoked!: Boolean;
 
+  invokeSearch($event: Boolean) {
+    this.searchInvoked = $event;
+  }
 }
