@@ -15,6 +15,8 @@ import { FiltersBarComponent } from './filters-bar/filters-bar.component';
 import { MaterialUiSharedModule } from './_modules/material-ui-shared.module';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +36,9 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
     BrowserAnimationsModule,
     MaterialUiSharedModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'pl'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
