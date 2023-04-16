@@ -17,9 +17,9 @@ namespace EmployeeApp.API.Controllers
         }
 
         [HttpGet("GetEmployees")]
-        public async Task<ActionResult<List<Employee>>> GetEmployees()
+        public async Task<ActionResult<List<Employee>>> GetEmployees(DateTime? fromDate, DateTime? toDate, string? name, int? managerId)
         {
-            return Ok(await _employeeService.GetEmployees());
+            return Ok(await _employeeService.GetEmployees(fromDate, toDate, name, managerId));
         }
 
         [HttpGet("GetManagers")]

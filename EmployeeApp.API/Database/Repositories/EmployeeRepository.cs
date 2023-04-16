@@ -13,9 +13,31 @@ namespace EmployeeApp.API.Database.Repositories
             _context = context;
         }
 
-        public async Task<List<Employee>> GetEmployees()
+        public async Task<List<Employee>> GetEmployees(DateTime? fromDate, DateTime? toDate, string? name, int? managerId)
         {
-            return await _context.Employees.ToListAsync();
+            var employees = _context.Employees.AsQueryable();
+
+            if (fromDate != null)
+            {
+                employees = employees.Where(e => e.HireDate >= fromDate);
+            }
+
+            if (toDate != null)
+            {
+                employees = employees.Where(e => e.HireDate <= toDate);
+            }
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                employees = employees.Where(e => e.Name.Contains(name));
+            }
+
+            if (managerId != null)
+            {
+                employees = employees.Where(e => e.ManagerId == managerId);
+            }
+
+            return await employees.ToListAsync();
         }
 
         public async Task<List<Employee>> GetManagers()
