@@ -1,3 +1,4 @@
+import { AppRoutingModule } from './app-routing.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -12,6 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { FiltersBarComponent } from './filters-bar/filters-bar.component';
 
 import { MaterialUiSharedModule } from './_modules/material-ui-shared.module';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
@@ -19,9 +21,11 @@ import { MaterialUiSharedModule } from './_modules/material-ui-shared.module';
     EmployeesPageComponent,
     EmployeesTableComponent,
     HeaderComponent,
-    FiltersBarComponent
+    FiltersBarComponent,
+    NotFoundPageComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     NgbModule,
     FormsModule,
