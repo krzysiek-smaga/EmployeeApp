@@ -37,7 +37,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     MaterialUiSharedModule
   ],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'pl'}
+    { provide: MAT_DATE_LOCALE, useValue: 'pl' }
   ],
   bootstrap: [AppComponent]
 })
