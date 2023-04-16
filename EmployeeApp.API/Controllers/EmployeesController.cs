@@ -1,6 +1,5 @@
 ﻿using EmployeeApp.API.Domain.Models;
 using EmployeeApp.API.Domain.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeApp.API.Controllers
