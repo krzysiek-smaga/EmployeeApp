@@ -17,19 +17,19 @@ namespace EmployeeApp.API.Controllers
         }
 
         [HttpGet("GetEmployees")]
-        public async Task<ActionResult<List<Employee>>> GetEmployees(DateTime? fromDate, DateTime? toDate, string? name, int? managerId)
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees(DateTime? fromDate, DateTime? toDate, string? name, int? managerId)
         {
             return Ok(await _employeeService.GetEmployees(fromDate, toDate, name, managerId));
         }
 
         [HttpGet("GetManagers")]
-        public async Task<ActionResult<List<Employee>>> GetManagers()
+        public async Task<ActionResult<IEnumerable<Employee>>> GetManagers()
         {
             return Ok(await _employeeService.GetManagers());
         }
 
         [HttpGet("GetEmployeesNames")]
-        public async Task<ActionResult<List<string>>> GetEmployeesNames()
+        public async Task<ActionResult<IEnumerable<string>>> GetEmployeesNames()
         {
             return Ok(await _employeeService.GetEmployeesNames());
         }

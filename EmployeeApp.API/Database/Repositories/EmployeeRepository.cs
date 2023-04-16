@@ -13,7 +13,7 @@ namespace EmployeeApp.API.Database.Repositories
             _context = context;
         }
 
-        public async Task<List<Employee>> GetEmployees(DateTime? fromDate, DateTime? toDate, string? name, int? managerId)
+        public async Task<IEnumerable<Employee>> GetEmployees(DateTime? fromDate, DateTime? toDate, string? name, int? managerId)
         {
             var employees = _context.Employees.AsQueryable();
 
@@ -40,7 +40,7 @@ namespace EmployeeApp.API.Database.Repositories
             return await employees.ToListAsync();
         }
 
-        public async Task<List<Employee>> GetManagers()
+        public async Task<IEnumerable<Employee>> GetManagers()
         {
             var managerIds = await _context.Employees.AsQueryable().Select(x => x.ManagerId).Distinct().ToListAsync();
 
@@ -49,7 +49,7 @@ namespace EmployeeApp.API.Database.Repositories
             return managers;
         }
 
-        public async Task<List<string>> GetEmployeesNames()
+        public async Task<IEnumerable<string>> GetEmployeesNames()
         {
             return await _context.Employees.Select(emp => emp.Name).ToListAsync();
         }
